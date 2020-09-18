@@ -1,8 +1,8 @@
 {
 
-    "name": "Site profissional da Lívia Ayumi",
+    "name": "Site profissional",
     "short_name": "Lívia Ayumi",
-    "start_url": "?/index.html",
+    "start_url": "/index.html",
     "icons": [
         {
             "src": "img/icon48.png",
