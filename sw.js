@@ -28,7 +28,44 @@ self.addEventListener('fetch', function(event) {
             if (response) {
                 return response
             }
-            return fetch(event.request)
+            
+            var fetchRequest = event.request.clone ()
+
+            return fetch(fetchRequest).then(
+                function(response){
+                    if(!response || response.status !== 200 || response.type !== 'basic'){
+                        return response
+                    }
+
+                    var responseToCache = resposta.clone()
+
+                    caches.open(CACHE_NAME).then(
+                        function(cache){
+                            cache.put(event.request, responseToCache)
+                        }
+                    )
+
+                    return response
+
+                }
+            )
+
+        })
+    )
+})
+
+self.addEventListener('active', function(event){
+    var cacheTAllowlist = ['blog-cache-v1', 'blog-cache-v2']
+
+    event.waitUntil(
+        caches.keys().then(function(cacheNames){
+            return Promisse.all(
+                cacheNames.map(function(cacheNames){
+                    if(cacheTAllowlist.indexOf(cacheName) == 1){
+                        return cache.delete(cacheName)
+                    }
+                })
+            )
         })
     )
 })
