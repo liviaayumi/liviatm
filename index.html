@@ -5,14 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="manifest" href="manifest.json">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="LíviaAyumi">
+<meta name="apple-mobile-web-app-title" content="LíviaAyumi">
+<meta name="theme-color" content="#2f6cbc">
+<meta name="msapplication-navbutton-color" content="#2f6cbc">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-starturl" content="./">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" type="image/png" sizes="512x512" href="https://liviaayumi.github.io/liviatm/img/icon512.png">
+<link rel="apple-touch-icon" type="image/png" sizes="512x512" href="https://liviaayumi.github.io/liviatm/img/icon512.png">
+<link rel="icon" type="image/png" sizes="48x48" href="homescreen.pnghttps://liviaayumi.github.io/liviatm/img/icon48.png">
+<link rel="apple-touch-icon" type="image/png" sizes="48x48" href="homescreen.pnghttps://liviaayumi.github.io/liviatm/img/icon48.png">
     <title>Lívia Ayumi</title>
     <script>
-        if('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').then(function() {
-                console.log('Service worker registrado com sucesso!')
-            }).catch(function() {
-                console.log('Registro do service worker não realizado!')
-            })
+        if ("serviceWorker" in navigator) {
+            if (navigator.serviceWorker.controller) {
+                console.log("[Aplicativo] funcionário de serviço ativo encontrado, não há necessidade de registrar");
+            } else {
+                navigator.serviceWorker
+                .register("./sw.js", {
+                    scope: "./"
+                })
+                .then(function(reg) {
+                    console.log("[Aplicativo] O trabalhador do serviço foi registrado para o escopo: " + reg.scope);
+                });
+            }
         }
     </script>
 </head>
